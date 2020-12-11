@@ -1,3 +1,9 @@
+"""
+Search for the people who have long enough of workout history
+
+Input: Days or period
+Output: the list of personal ID
+"""
 import os
 import json
 import fnmatch
@@ -5,7 +11,7 @@ import datetime
 import pickle
 
 
-def FRP():
+def FRP(minDuration):
     fileList = os.listdir('Data/coros_data/jsonload/extf')
     fldFileList = fnmatch.filter(fileList, '*.xx')
     People = {}
@@ -33,12 +39,14 @@ def FRP():
             continue
     keys = []
     for key in People:
-        if (People[key][1]-People[key][0]).days > 90:
+        if (People[key][1]-People[key][0]).days > minDuration:
             keys.append(key)
-    print(keys)
     with open('keys.txt', 'wb') as f:
         pickle.dump(keys, f)
+    # print(keys)
+    return (keys)
+
           
 
-if __name__ == '__main__':
-    FRP()
+# if __name__ == '__main__':
+#     FRP()
